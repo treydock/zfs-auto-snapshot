@@ -1,2 +1,11 @@
 #!/bin/sh
-exec zfs-auto-snapshot --quiet --syslog --label=daily --keep=31 //
+
+source /etc/default/zfs-auto-snapshot
+
+ENABLE=${1:-$DAILY}
+KEEP=${31:-$DAILY_KEEP}
+[ -z "$DAILY_FILESYSTEMS" ] && FILESYSTEMS='//' || FILESYSTEMS=${DAILY_FILESYSTEMS}
+
+if [ $ENABLE -eq 1 ]; then
+  exec zfs-auto-snapshot --quiet --syslog --label=daily --keep=${KEEP} ${FILESYSTEMS}
+fi

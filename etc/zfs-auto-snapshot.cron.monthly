@@ -1,2 +1,11 @@
 #!/bin/sh
-exec zfs-auto-snapshot --quiet --syslog --label=monthly --keep=12 //
+
+source /etc/default/zfs-auto-snapshot
+
+ENABLE=${1:-$MONTHLY}
+KEEP=${31:-$MONTHLY_KEEP}
+[ -z "$MONTHLY_FILESYSTEMS" ] && FILESYSTEMS='//' || FILESYSTEMS=${MONTHLY_FILESYSTEMS}
+
+if [ $ENABLE -eq 1 ]; then
+  exec zfs-auto-snapshot --quiet --syslog --label=monthly --keep=${KEEP} ${FILESYSTEMS}
+fi
