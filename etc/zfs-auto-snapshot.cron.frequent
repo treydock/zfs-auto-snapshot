@@ -5,5 +5,6 @@ source /etc/default/zfs-auto-snapshot
 ENABLE=${1:-$FREQUENT}
 KEEP=${31:-$FREQUENT_KEEP}
 [ -z "$FREQUENT_FILESYSTEMS" ] && FILESYSTEMS='//' || FILESYSTEMS=${FREQUENT_FILESYSTEMS}
+[ -z "$FREQUENT_ARGS" ] && ARGS='--quiet --syslog' || ARGS=${FREQUENT_ARGS}
 
-*/15 * * * * root [ $ENABLE -eq 1 ] && zfs-auto-snapshot -q -g --label=frequent --keep=${KEEP} ${FILESYSTEMS}
+*/15 * * * * root [ $ENABLE -eq 1 ] && zfs-auto-snapshot ${ARGS} --label=frequent --keep=${KEEP} ${FILESYSTEMS}

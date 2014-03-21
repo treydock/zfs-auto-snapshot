@@ -40,5 +40,5 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/default/zfs-auto-snapshot
 
 %changelog
-* Tue Feb 13 2014 Trey Dockendorf <treydock@gmail.com> 1.0.8-1
+* Tue Mar 18 2014 Trey Dockendorf <treydock@gmail.com> %{version}
 - Initial spec file creation

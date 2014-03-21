@@ -5,7 +5,8 @@ source /etc/default/zfs-auto-snapshot
 ENABLE=${1:-$WEEKLY}
 KEEP=${31:-$WEEKLY_KEEP}
 [ -z "$WEEKLY_FILESYSTEMS" ] && FILESYSTEMS='//' || FILESYSTEMS=${WEEKLY_FILESYSTEMS}
+[ -z "$WEEKLY_ARGS" ] && ARGS='--quiet --syslog' || ARGS=${WEEKLY_ARGS}
 
 if [ $ENABLE -eq 1 ]; then
-  exec zfs-auto-snapshot --quiet --syslog --label=weekly --keep=${KEEP} ${FILESYSTEMS}
+  exec zfs-auto-snapshot ${ARGS} --label=weekly --keep=${KEEP} ${FILESYSTEMS}
 fi

@@ -5,7 +5,8 @@ source /etc/default/zfs-auto-snapshot
 ENABLE=${1:-$HOURLY}
 KEEP=${31:-$HOURLY_KEEP}
 [ -z "$HOURLY_FILESYSTEMS" ] && FILESYSTEMS='//' || FILESYSTEMS=${HOURLY_FILESYSTEMS}
+[ -z "$HOURLY_ARGS" ] && ARGS='--quiet --syslog' || ARGS=${HOURLY_ARGS}
 
 if [ $ENABLE -eq 1 ]; then
-  exec zfs-auto-snapshot --quiet --syslog --label=hourly --keep=${KEEP} ${FILESYSTEMS}
+  exec zfs-auto-snapshot ${ARGS} --label=hourly --keep=${KEEP} ${FILESYSTEMS}
 fi
