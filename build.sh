@@ -115,14 +115,14 @@ cd $DIR
 # if --mock was passed, run mock rebuild
 if [ $MOCK -eq 1 ]; then
   # build SRPMs
-  rpmbuild -bs --define "version ${VERSION}" --define "dist ${RELEASE}.el6" --define 'rhel 6' ${DIR}/${NAME}.spec
+  rpmbuild -bs --define "_topdir ${DIR}" --define "version ${VERSION}" --define "dist ${RELEASE}.el6" --define 'rhel 6' ${DIR}/${NAME}.spec
 
   # Build EL6
   exec_cmd "mock -r epel-6-x86_64 ${mock_quiet} ${mock_trace} --define 'dist ${RELEASE}.el6' --define 'version ${VERSION}' --resultdir=${DIR}/RPMS --rebuild ${DIR}/SRPMS/${NAME}-${VERSION}-${RELEASE}.el6.src.rpm"
 
 else
   # build RPMs
-  rpmbuild -ba --define "version ${VERSION}" --define "dist ${RELEASE}.el6" --define 'rhel 6' ${DIR}/${NAME}.spec
+  rpmbuild -ba --define "_topdir ${DIR}" --define "version ${VERSION}" --define "dist ${RELEASE}.el6" --define 'rhel 6' ${DIR}/${NAME}.spec
 fi
 
 exit 0
